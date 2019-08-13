@@ -1,0 +1,18 @@
+server:
+  port: 8003
+
+spring:
+  application:
+    name: app-client-1
+
+eureka:
+  instance:
+#    instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+    instanceId: ${spring.cloud.client.ip-address}:${server.port}
+    status-page-url-path: /
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.cloud.client.ip-address}:8761/eureka/
+    # 心跳检测
+    healthcheck:
+      enabled: true
